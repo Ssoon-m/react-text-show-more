@@ -24,9 +24,9 @@ const config = {
   ],
   output: [
     {
-      file: "./dist/index.mjs",
-      format: "es",
-      sourcemap: true,
+      file: "./dist/index.js",
+      format: "cjs",
+      plugins: [terser()],
     },
     {
       file: "./dist/index.min.js",

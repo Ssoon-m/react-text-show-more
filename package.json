@@ -13,6 +13,11 @@
     "react": ">=16.12.0",
     "react-dom": ">=16.12.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Ssoon-m/react-text-show-more.git"
+  },
+  "homepage": "https://github.com/Ssoon-m/react-text-show-more",
   "devDependencies": {
     "@babel/core": "^7.20.12",
     "@rollup/plugin-babel": "^6.0.3",
