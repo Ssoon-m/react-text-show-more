@@ -1,6 +1,6 @@
 {
   "name": "react-text-show-more",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "react text show more",
   "module": "dist/index.js",
   "main": "dist/index.js",
