@@ -17,18 +17,34 @@ interface IShowMoreTextState {
   text: string;
 }
 
-interface Props extends React.ComponentPropsWithoutRef<"div"> {
+interface Props extends React.ComponentPropsWithoutRef<"p"> {
+  /**
+   * Text to display on screen
+   */
   text: string;
+  /**
+   * Number of lines of text to display on screen
+   */
   lines: number;
   /**
    * Value for window resize event delay
    * @default 100(ms in seconds)
    */
   delay?: number;
+  /**
+   * ellipsis text ending element
+   */
   ellipsis?: React.ReactNode;
+  /**
+   * Elements for show more text
+   */
   moreElement?: React.ReactNode;
+  /**
+   * Elements for show less text
+   */
   lessElement?: React.ReactNode;
   /**
+   * delete 'show more' & 'show less' button
    * @default false
    */
   toggleHidden?: boolean;
@@ -37,6 +53,8 @@ interface Props extends React.ComponentPropsWithoutRef<"div"> {
 export type ShowMoreTextHandle = {
   onClickShowMoreButton: () => void;
 };
+
+const EllipsisTextCut = 4;
 
 const ShowMoreText = React.forwardRef<ShowMoreTextHandle, Props>(
   (
@@ -80,7 +98,7 @@ const ShowMoreText = React.forwardRef<ShowMoreTextHandle, Props>(
     };
 
     const debounce = useCallback((callback: () => void, wait: number) => {
-      let timeout: NodeJS.Timeout | null;
+      let timeout: ReturnType<typeof setTimeout> | null;
       return () => {
         const later = () => {
           timeout = null;
@@ -120,9 +138,10 @@ const ShowMoreText = React.forwardRef<ShowMoreTextHandle, Props>(
       const target = binarySearch(0, original.length, 0);
       if (!target) return;
 
-      textRef.current.innerText = original.slice(0, target - 4) + ellipsis;
+      textRef.current.innerText =
+        original.slice(0, target - EllipsisTextCut) + ellipsis;
       setMoreTextState({
-        text: original.slice(0, target - 4) + ellipsis,
+        text: original.slice(0, target - EllipsisTextCut) + ellipsis,
         type: "more",
       });
     };
@@ -142,7 +161,7 @@ const ShowMoreText = React.forwardRef<ShowMoreTextHandle, Props>(
     return (
       <>
         <p
-          id="react-read-more-text-content"
+          id="react-text-show-more-content"
           ref={textRef}
           style={{ whiteSpace: "pre-wrap" }}
           {...props}
@@ -152,8 +171,9 @@ const ShowMoreText = React.forwardRef<ShowMoreTextHandle, Props>(
 
         {type !== undefined && !toggleHidden && (
           <button
+            className="react-text-show-more-toggle-button"
             onClick={handleShowMore}
-            aria-controls="react-read-more-text-content"
+            aria-controls="react-text-show-more-content"
             aria-expanded={type === "less"}
           >
             {type === "less" ? lessElement : moreElement}
