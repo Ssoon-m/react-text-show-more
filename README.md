@@ -4,7 +4,7 @@
 
 ## Installation
 
-You can use [npm](https://npmjs.org) to install [react-text-show-more](https://https://www.npmjs.com/package/react-text-show-more)
+You can use [npm](https://npmjs.org) to install [react-text-show-more](https://www.npmjs.com/package/react-text-show-more)
 
 ```
 $ npm install react-text-show-more
